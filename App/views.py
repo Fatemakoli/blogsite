@@ -1,17 +1,44 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import *
+from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
-
-def beauty(request):
-    return render(request, 'beauty.html')
-
-def fashion(request):
-    return render(request, 'fashion.html')
-
-def travel(request):
-    return render(request, 'travel.html')
+    queryset = Post.objects.all()
+    context = {
+        "object_list": queryset,
+    }
+    return render(request, 'index.html', context)
+    
 
 def contact(request):
+    if request.method == "POST":
+        var1 = request.POST.get("name")
+        var2 = request.POST.get("email")
+        var3 = request.POST.get("subject")
+        var4= request.POST.get("phone")
+        var5 = request.POST.get("message")
+
+        message_body = var1+ '\n' + var2 + '\n' +var3 + '\n' + var4 + "\n" + var5
+        send_mail(
+            'Contact Form [Beaty Blog]',
+            message_body,
+            settings.EMAIL_FROM,
+            ['raihan.tusher@yahoo.com'],
+            fail_silently=False,
+        )
+        
     return render(request, 'contact.html')
+
+
+def email(request):
+   send_mail(
+      'Subject here',
+      'Here is the message.',
+      settings.EMAIL_FROM,
+      ['raihan.tusher@yahoo.com'],
+      fail_silently=False,
+   )
+   return HttpResponse( " mail sent!")

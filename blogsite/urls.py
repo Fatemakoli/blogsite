@@ -17,13 +17,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from App import views
+
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('beauty', views.beauty, name='beauty'),
-    path('fashion', views.fashion, name='fashion'),
-    path('travel', views.travel, name='travel'),
-    path('contact', views.contact, name='contact'),
+    path('', include('App.urls')), 
+    path('beauty/', include('beauty.urls')),    
+    path('fashion/', include('fashion.urls')), 
+    path('travel/', include('travel.urls')),
+  #  path('dashboard/', include('adminlite.urls')),  
     path('admin/', admin.site.urls),
+   
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+

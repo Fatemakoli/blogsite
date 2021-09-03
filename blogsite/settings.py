@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'App',
+   # 'adminlite',
+    'fashion',
+    'beauty',
+    'travel',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +126,21 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SMTP configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS=True
+EMAIL_FROM = "7dc41f689d-d84db5@inbox.mailtrap.io"
+
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'd76b8b3fb91060'
+EMAIL_HOST_PASSWORD = '256d461f8cef37'
+EMAIL_PORT = '2525'

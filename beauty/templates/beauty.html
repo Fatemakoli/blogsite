@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+{% block content %}
+<div class="bg-gray">
+  <div class=" p-5">
+    <h3 class="text-center" >Welcome to Beauty site</h3>
+  </div>
+</div>
+
+    <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8"> 
+          <div class="container">
+            <div class="row">
+              <!-- post -->
+          {% for obj in object_list %}
+
+              <div class="post col-xl-6">
+                <div class="post-thumbnail"><a href=" {% url 'bblog' obj.id %}"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date meta-last">20 May | 2016</div>
+                    <div class="category"><a href="#">Beauty</a></div>
+                  </div><a href="{% url 'bblog' obj.id %}">
+                    <h3 class="h4">{{ obj.title }}</h3></a>
+                  <p>{{ obj.discription|linebreaks|truncatechars:200 }}</p>
+                  <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="{{ obj.author_img.url }}" alt="..." class="img-fluid"></div>
+                      <div class="title"><span>{{author}}</span></div></a>
+                      <div class="date"><i class="icon-clock"></i> {{ obj.timestamp|timesince }} ago</div>
+                      <div class="view text-gray">views <i class="icon-eye"></i> {{ obj.view_count }}</div>
+                  </footer>
+                </div>
+              </div>
+             {% endfor %}
+              
+            </div>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-template d-flex justify-content-center">
+                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                <li class="page-item"><a href="#" class="page-link active">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </nav>
+          </div>
+        </main>
+        <aside class="col-lg-4">
+          <!-- Widget [Search Bar Widget]-->
+         
+          <!-- Widget [Latest Posts Widget]        -->
+          <div class="widget latest-posts">
+            <header>
+              <h3 class="h6">Latest Posts</h3>
+            </header>
+            {% for obj in object_list %}
+
+            <div class="blog-posts"><a href="#">
+                <div class="item d-flex align-items-center">
+                  <div class="image"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid clrcle"></div>
+                  <div class="title"><strong><a href="">
+                    <h3 class="h5">{{ obj.title|linebreaks|truncatechars:40 }}</h3></a></strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views">views <i class="icon-eye"></i> {{ obj.view_count }}</div>
+                     
+                    </div>
+                  </div>
+                </div></a><a href="#">
+            </div>
+              {% endfor %}
+        
+          </div>
+     
+          
+        </aside>
+      </div>
+    </div>
+ 
+
+{% endblock%}
